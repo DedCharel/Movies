@@ -6,14 +6,22 @@ import java.util.List;
 
 public class MovieResponse {
 
+    @SerializedName("docs")
     private List<Movie> movies;
 
-    @SerializedName("docs")
+
     public List<Movie> getMovies() {
         return movies;
     }
 
     public MovieResponse(List<Movie> movies) {
         this.movies = movies;
+    }
+
+    @Override
+    public String toString() {
+        return "MovieResponse{" +
+                "movies=" + movies +
+                '}';
     }
 }
