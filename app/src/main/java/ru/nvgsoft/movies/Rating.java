@@ -12,6 +12,7 @@ public class Rating {
     }
 
     public Rating(String kp) {
+
         this.kp = kp;
     }
 
