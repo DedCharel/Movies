@@ -1,5 +1,6 @@
 package ru.nvgsoft.movies;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -39,8 +41,19 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         Glide.with(viewHolder.itemView)
                 .load(movie.getPoster().getUrl())
                 .into(viewHolder.imageViewPoster);
-        String rating = String.format("%.1f",Double.parseDouble(movie.getRating().getKp()));
-        viewHolder.textViewRating.setText(rating);
+        double rating = movie.getRating().getKp();
+        int backgroundId;
+        if (rating > 7) {
+            backgroundId =R.drawable.circle_green;
+        } else if (rating > 5 ){
+            backgroundId =R.drawable.circle_orange;
+        } else{
+            backgroundId = R.drawable.circle_red;
+        }
+        Drawable background = ContextCompat.getDrawable(viewHolder.itemView.getContext(), backgroundId);
+        viewHolder.textViewRating.setBackground(background);
+        viewHolder.textViewRating.setText(String.format("%.1f",rating));
+
 
     }
 
