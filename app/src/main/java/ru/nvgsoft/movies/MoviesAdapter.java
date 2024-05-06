@@ -59,7 +59,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         viewHolder.textViewRating.setBackground(background);
         viewHolder.textViewRating.setText(String.format("%.1f",rating));
 
-        if (position == movies.size() - 1 && onReachEndListener != null){
+        // проверяем >= вместо == для того чтобы если пришла от сервера ошибка то при прокрутки на
+        // следущий элемент мы снова попытались загрузить.
+        // можно было оставить и ==
+        if (position >= movies.size() - 10 && onReachEndListener != null){
             onReachEndListener.onReachEnd();
         }
 
