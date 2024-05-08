@@ -3,16 +3,16 @@ package ru.nvgsoft.movies;
 import android.content.Context;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.functions.Consumer;
-import io.reactivex.rxjava3.schedulers.Schedulers;
+import java.util.List;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
@@ -22,6 +22,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView textViewTitle;
     private TextView textViewYear;
     private TextView textViewDescription;
+
+    private MovieDetailsViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,22 +38,16 @@ public class MovieDetailActivity extends AppCompatActivity {
         textViewTitle.setText(movie.getName());
         textViewYear.setText(String.valueOf(movie.getYear()));
         textViewDescription.setText(movie.getDescription());
-        ApiFactory.apiService.loadTrailers(movie.getId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<TrailerResponse>() {
-                    @Override
-                    public void accept(TrailerResponse trailerResponse) throws Throwable {
-                        if (trailerResponse.getTrailersList() != null) {
-                            Log.d("MovieDetailActivity", trailerResponse.getTrailersList().toString());
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Throwable {
 
-                    }
-                });
+        viewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
+        viewModel.loadTrailers(movie.getId());
+        viewModel.getTrailers().observe(this, new Observer<List<Trailer>>() {
+            @Override
+            public void onChanged(List<Trailer> trailers) {
+
+            }
+        });
+
     }
 
     private void initViews(){

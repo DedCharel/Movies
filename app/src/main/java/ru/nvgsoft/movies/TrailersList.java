@@ -7,20 +7,20 @@ import java.util.List;
 
 public class TrailersList implements Serializable {
     @SerializedName("trailers")
-    private List<Trailer> trailerList;
+    private List<Trailer> trailers;
 
     @Override
     public String toString() {
         return "TrailersList{" +
-                "trailerList=" + trailerList +
+                "trailerList=" + trailers +
                 '}';
     }
 
-    public List<Trailer> getTrailerList() {
-        return trailerList;
+    public List<Trailer> getTrailers() {
+        return trailers;
     }
 
     public TrailersList(List<Trailer> trailerList) {
-        this.trailerList = trailerList;
+        this.trailers = trailerList;
     }
 }
