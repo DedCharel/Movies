@@ -8,13 +8,13 @@ public class Trailer implements Serializable {
     @SerializedName("name")
     private String name;
 
+    @SerializedName("url")
+    private String url;
+
     public Trailer(String name, String url) {
         this.name = name;
         this.url = url;
     }
-
-    @SerializedName("url")
-    private String url;
 
     public String getName() {
         return name;
