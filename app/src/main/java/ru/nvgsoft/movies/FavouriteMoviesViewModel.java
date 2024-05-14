@@ -12,11 +12,11 @@ import java.util.List;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class FavoriteMoviesViewModel extends AndroidViewModel {
+public class FavouriteMoviesViewModel extends AndroidViewModel {
 
     private final MovieDao movieDao;
 
-    public FavoriteMoviesViewModel(@NonNull Application application) {
+    public FavouriteMoviesViewModel(@NonNull Application application) {
         super(application);
         movieDao = MovieDatabase.getInstance(application).movieDao();
     }

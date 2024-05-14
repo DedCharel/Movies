@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Movies"
         tools:targetApi="31">
         <activity
-            android:name=".FavoriteMoviesActivity"
+            android:name=".FavouriteMoviesActivity"
             android:exported="false" />
         <activity
             android:name=".MovieDetailActivity"

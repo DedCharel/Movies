@@ -12,7 +12,7 @@ import android.os.Bundle;
 
 import java.util.List;
 
-public class FavoriteMoviesActivity extends AppCompatActivity {
+public class FavouriteMoviesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +27,14 @@ public class FavoriteMoviesActivity extends AppCompatActivity {
             @Override
             public void onMovieClick(Movie movie) {
                 Intent intent = MovieDetailActivity.newIntent(
-                        FavoriteMoviesActivity.this,
+                        FavouriteMoviesActivity.this,
                         movie
                 );
                 startActivity(intent);
             }
         });
 
-        FavoriteMoviesViewModel viewModel = new ViewModelProvider(this).get(FavoriteMoviesViewModel.class);
+        FavouriteMoviesViewModel viewModel = new ViewModelProvider(this).get(FavouriteMoviesViewModel.class);
         viewModel.getMovies().observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(List<Movie> movies) {
@@ -44,7 +44,7 @@ public class FavoriteMoviesActivity extends AppCompatActivity {
     }
 
     public static Intent newIntent(Context context) {
-        return new Intent(context, FavoriteMoviesActivity.class);
+        return new Intent(context, FavouriteMoviesActivity.class);
 
     }
 }

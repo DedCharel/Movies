@@ -1,15 +1,18 @@
 package ru.nvgsoft.movies;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import java.util.List;
 
@@ -25,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = FavoriteMoviesActivity.newIntent(this);
-        startActivity(intent);
 
         initViews();
         moviesAdapter = new MoviesAdapter();
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getIsLoading().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isLoading) {
-                if (isLoading){
+                if (isLoading) {
                     progressBarLoading.setVisibility(View.VISIBLE);
                 } else {
                     progressBarLoading.setVisibility(View.GONE);
@@ -69,8 +70,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void initViews(){
+    private void initViews() {
         progressBarLoading = findViewById(R.id.progressBarLoading);
         recyclerViewMovies = findViewById(R.id.recyclerViewMovies);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.itemFavourite) {
+            Intent intent = FavouriteMoviesActivity.newIntent(this);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
